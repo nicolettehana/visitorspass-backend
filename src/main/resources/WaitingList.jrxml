@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio -->
+<jasperReport name="WL" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+    <!-- Parameters -->
+    <parameter name="TableDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+
+    <!-- Fields for Title / Header -->
+    <field name="heading" class="java.lang.String"/>
+    <field name="generatedOn" class="java.util.Date"/>
+
+    <!-- Title -->
+    <title>
+        <band height="140">
+            <image>
+                <reportElement x="0" y="0" width="64" height="70"/>
+                <imageExpression><![CDATA["Emblem_of_India.png"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="80" y="10" width="380" height="30"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="20" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Government of Meghalaya]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="80" y="40" width="380" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[General Administration Department (B)]]></text>
+            </staticText>
+            <line>
+                <reportElement x="0" y="80" width="556" height="1"/>
+            </line>
+            <textField>
+                <reportElement x="0" y="90" width="551" height="30"/>
+                <textElement textAlignment="Center">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{heading}]]></textFieldExpression>
+            </textField>
+            <textField pattern="MMM d, yyyy h:mm a">
+                <reportElement x="450" y="120" width="105" height="20"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="9" isItalic="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{generatedOn}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="380" y="120" width="70" height="20"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="9" isItalic="true"/>
+                </textElement>
+                <text><![CDATA[Generated on:]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <!-- Page Header -->
+    <pageHeader>
+        <band height="80">
+            <componentElement>
+                <reportElement x="0" y="0" width="555" height="70" uuid="table-uuid-001"/>
+                <component>
+                    <tableComponent>
+                        <datasetRun subDataset="AppWL">
+                            <dataSourceExpression><![CDATA[$P{TableDataSource}]]></dataSourceExpression>
+                        </datasetRun>
+                        <columnGroup width="555">
+                            <!-- Column 1: Sl. No. -->
+                            <column width="40">
+                                <columnHeader height="30">
+                                    <staticText>
+                                        <reportElement x="0" y="0" width="40" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle">
+                                            <font isBold="true"/>
+                                        </textElement>
+                                        <text><![CDATA[Sl. No.]]></text>
+                                    </staticText>
+                                </columnHeader>
+                                <detailCell height="30">
+                                    <textField>
+                                        <reportElement x="0" y="0" width="40" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                                        <textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+                                    </textField>
+                                </detailCell>
+                            </column>
+
+                            <!-- Column 2: Name & Designation -->
+                            <column width="120">
+                                <columnHeader height="30">
+                                    <staticText>
+                                        <reportElement x="0" y="0" width="120" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle">
+                                            <font isBold="true"/>
+                                        </textElement>
+                                        <text><![CDATA[Name & Designation]]></text>
+                                    </staticText>
+                                </columnHeader>
+                                <detailCell height="30">
+                                    <textField>
+                                        <reportElement x="0" y="0" width="120" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                                        <textFieldExpression><![CDATA[$F{nameDesignation}]]></textFieldExpression>
+                                    </textField>
+                                </detailCell>
+                            </column>
+
+                            <!-- Column 3: Department -->
+                            <column width="100">
+                                <columnHeader height="30">
+                                    <staticText>
+                                        <reportElement x="0" y="0" width="100" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle">
+                                            <font isBold="true"/>
+                                        </textElement>
+                                        <text><![CDATA[Department]]></text>
+                                    </staticText>
+                                </columnHeader>
+                                <detailCell height="30">
+                                    <textField>
+                                        <reportElement x="0" y="0" width="100" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                                        <textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
+                                    </textField>
+                                </detailCell>
+                            </column>
+
+                            <!-- Column 4: Scale of Pay -->
+                            <column width="96">
+                                <columnHeader height="30">
+                                    <staticText>
+                                        <reportElement x="0" y="0" width="96" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle">
+                                            <font isBold="true"/>
+                                        </textElement>
+                                        <text><![CDATA[Scale of Pay]]></text>
+                                    </staticText>
+                                </columnHeader>
+                                <detailCell height="30">
+                                    <textField>
+                                        <reportElement x="0" y="0" width="96" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                                        <textFieldExpression><![CDATA[$F{scaleOfPay}]]></textFieldExpression>
+                                    </textField>
+                                </detailCell>
+                            </column>
+
+                            <!-- Column 5: Applied Date -->
+                            <column width="88">
+                                <columnHeader height="30">
+                                    <staticText>
+                                        <reportElement x="0" y="0" width="88" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle">
+                                            <font isBold="true"/>
+                                        </textElement>
+                                        <text><![CDATA[Applied Date]]></text>
+                                    </staticText>
+                                </columnHeader>
+                                <detailCell height="30">
+                                    <textField pattern="dd-MM-yyyy">
+                                        <reportElement x="0" y="0" width="88" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                                        <textFieldExpression><![CDATA[$F{appliedDate}]]></textFieldExpression>
+                                    </textField>
+                                </detailCell>
+                            </column>
+
+                            <!-- Column 6: Date of Retirement -->
+                            <column width="93">
+                                <columnHeader height="30">
+                                    <staticText>
+                                        <reportElement x="0" y="0" width="93" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle">
+                                            <font isBold="true"/>
+                                        </textElement>
+                                        <text><![CDATA[Date of Retirement]]></text>
+                                    </staticText>
+                                </columnHeader>
+                                <detailCell height="30">
+                                    <textField pattern="dd-MM-yyyy">
+                                        <reportElement x="0" y="0" width="93" height="30"/>
+                                        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                                        <textFieldExpression><![CDATA[$F{retirementDate}]]></textFieldExpression>
+                                    </textField>
+                                </detailCell>
+                            </column>
+
+                        </columnGroup>
+                    </tableComponent>
+                </component>
+            </componentElement>
+        </band>
+    </pageHeader>
+</jasperReport>

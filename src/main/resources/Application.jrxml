@@ -1,0 +1,921 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="Application" language="java" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (4)"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50.0" bold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18.0" bold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14.0" bold="true"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle mode="Opaque" backcolor="#EEEFF0">
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	<style name="Table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#CACED0">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle backcolor="#D8D8D8">
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+		</conditionalStyle>
+	</style>
+	
+	<field name="applicationNo" class="java.lang.String"/>
+	<field name="fullName" class="java.lang.String"/>
+	<field name="basicPay" class="java.lang.Integer"/>
+	<field name="payScale" class="java.lang.String"/>
+	<field name="designation" class="java.lang.String"/>
+	<field name="department" class="java.lang.String"/>
+	<field name="officeAddress" class="java.lang.String"/>
+	<field name="dateEmployed" class="java.sql.Date"/>
+	<field name="dateRetirement" class="java.sql.Date"/>
+	<field name="gender" class="java.lang.String"/>
+	<field name="maritalStatus" class="java.lang.String"/>
+	<field name="employmentStatus" class="java.lang.String"/>
+	<field name="spouseAccommodation" class="java.lang.String"/>
+	<field name="accommodationDetails" class="java.lang.String"/>
+	<field name="service" class="java.lang.String"/>
+	<field name="otherService" class="java.lang.String"/>
+	<field name="deputation" class="java.lang.String"/>
+	<field name="deputationPeriod" class="java.lang.String"/>
+	<field name="debarredAllotment" class="java.lang.String"/>
+	<field name="debarredUpto" class="java.sql.Date"/>
+	<field name="ownHouse" class="java.lang.String"/>
+	<field name="houseDetails" class="java.lang.String"/>
+	<field name="houseBuildingAdvance" class="java.lang.String"/>
+	<field name="loanYear" class="java.lang.Integer"/>
+	<field name="houseConstructed" class="java.lang.String"/>
+	<field name="houseLocation" class="java.lang.String"/>
+	<field name="presentAddress" class="java.lang.String"/>
+	<field name="deptQuarter" class="java.lang.String"/>
+	<field name="deptQuarterReason" class="java.lang.String"/>
+	<field name="generatedOn" class="java.sql.Timestamp"/>
+	
+	<title height="166" splitType="Stretch">
+		<element kind="staticText" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca" positionType="Float" stretchType="ElementGroupHeight" x="-1" y="120" width="556" height="29" fontSize="17.0" underline="false" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Application for allotment of Residential Accommodation]]></text>
+		</element>
+		<element kind="image" uuid="94883631-a913-43e2-b182-ab8d77d0181e" x="0" y="0" width="64" height="70" hImageAlign="Center">
+			<expression><![CDATA["Emblem_of_India.png"]]></expression>
+		</element>
+		<element kind="staticText" uuid="e622555d-198b-4ccd-a4a1-c59c53304058" x="95" y="0" width="240" height="25" fontSize="19.0" bold="true">
+			<text><![CDATA[Government of Meghalaya]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</element>
+		<element kind="staticText" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde" x="95" y="30" width="205" height="20" fontSize="14.0" bold="true">
+			<text><![CDATA[Office of the Estate Officer]]></text>
+		</element>
+		<element kind="staticText" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e" x="95" y="50" width="205" height="20" fontSize="13.0" bold="true">
+			<text><![CDATA[Shillong - 793001]]></text>
+		</element>
+		<element kind="staticText" uuid="d9208d37-0fb9-4004-95ce-154e2966e0b3" positionType="Float" mode="Opaque" x="-1" y="81" width="556" height="20" backcolor="#E6E8E9" fontName="Serif" fontSize="9.0" italic="true" hTextAlign="Left" vTextAlign="Middle">
+			<text><![CDATA[                                                                                                                                                            Generated on:                            ]]></text>
+		</element>
+		<element kind="textField" uuid="21accbf4-4899-4b52-832d-81a6e440b909" x="448" y="81" width="105" height="20" fontSize="9.0" pattern="MMM d, yyyy h:mm a" italic="true" vTextAlign="Middle">
+			<expression><![CDATA[$F{generatedOn}]]></expression>
+		</element>
+		<property name="com.jaspersoft.studio.unit.height" value="px"/>
+	</title>
+	<detail>
+		<band height="802" splitType="Immediate">
+			<element kind="staticText" uuid="7d68248d-990d-4dc7-b4e2-a69912b771bb" x="4" y="0" width="112" height="25" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[Application No.:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<element kind="textField" uuid="aa0b70db-a1bf-482a-bb7b-c576978c2521" positionType="Float" x="116" y="0" width="273" height="25" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{applicationNo}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+			</element>
+			<element kind="staticText" uuid="9532f297-189b-43e4-939a-fc42ecf0bf80" x="7" y="25" width="112" height="25" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[1. Full Name:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="4df3dee9-78bc-49b9-9fe5-d0458ae2d740" positionType="Float" x="119" y="25" width="441" height="25" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{fullName}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="f3b4388d-029f-47a2-87b0-bc0d602f688b" x="7" y="50" width="112" height="25" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[2. (a) Basic Pay:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="7f34db73-65da-4a52-be03-db1c69fe98fb" positionType="Float" x="119" y="50" width="136" height="25" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{basicPay}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="0b5a67c3-a495-4b44-b0ea-f8e630cddbdd" x="255" y="50" width="112" height="25" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[(b) Scale of Pay:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="4ce7349e-7f65-43b4-a67e-4ecef93d5260" positionType="Float" x="367" y="50" width="193" height="25" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{payScale}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="28d0476a-c4f0-4cd6-bc11-073821e69510" x="7" y="75" width="112" height="25" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[3. Designation:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="329055df-37fb-491d-ae25-769178e3dadc" positionType="Float" x="119" y="75" width="441" height="25" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{designation}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="33370694-1f1d-444c-90da-cacc2496e199" x="8" y="100" width="199" height="25" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[4. (a) Department/Directorate:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="a3b157c1-db9d-46d8-97db-5d451df76b55" positionType="Float" x="207" y="100" width="350" height="25" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{department}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="e7c7424b-ac25-4cd6-a9dc-6cffc3f0aecc" x="19" y="125" width="180" height="40" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[ (b) Office Address at        which posted and Tel. No.:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="6fa685b5-0595-4f2e-b59c-9922ded41dcc" positionType="Float" x="199" y="125" width="360" height="40" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{officeAddress}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="9ab03f85-37a3-4032-aab1-4b0b2c5a5fd8" x="8" y="173" width="348" height="40" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[5. Date from which continuously employed under State Government including Foreign Service, if any:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="8902fe6a-4ef7-477f-a4ab-50d95835c941" positionType="Float" x="357" y="173" width="203" height="40" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Top" style="Detail" pattern="MMM d, yyyy">
+				<expression><![CDATA[$F{dateEmployed}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="964f25ee-251d-4d1e-b447-592196f04c50" x="9" y="213" width="279" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[6. Date of retirement on Superannuation:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="4316fdee-02c7-4cdb-b7ee-dd044f4148cb" positionType="Float" x="288" y="213" width="272" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail" pattern="MMM d, yyyy">
+				<expression><![CDATA[$F{dateRetirement}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="0d1727ea-f3c9-4182-bf9d-261289b6ac89" positionType="Float" x="77" y="235" width="176" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{gender}.equals("M")?"Male":"Female"]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="0ccaa82a-595e-4511-81f3-a3fec20bb3ac" x="9" y="235" width="68" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[7. (a) Sex:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="ccb6994b-682b-4e6b-9eca-320f0634dfbf" x="255" y="235" width="122" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{maritalStatus} != null && $F{maritalStatus}.length() > 0
+
+]]></printWhenExpression>
+				<text><![CDATA[(b) Marital Status:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="cefc68fc-d9c6-401d-b664-40db5e651d36" positionType="Float" x="378" y="235" width="178" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<printWhenExpression><![CDATA[$F{maritalStatus} != null && $F{maritalStatus}.length() > 0]]></printWhenExpression>
+				<expression><![CDATA[$F{maritalStatus}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="61192eda-b317-4d28-8b4e-e7983bf5a505" x="8" y="258" width="169" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[8. Employement Status:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="1433ccc0-11f5-4679-9cc4-da5a514c4b10" positionType="Float" x="177" y="258" width="381" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{employmentStatus}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="b32d0382-5853-48c4-be98-c7e7fd3c82c0" x="9" y="280" width="347" height="40" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[9. (a) Are you/your spouse occupying accommodation allotted by Estates/Departmental Officer?]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="46906557-bea5-421f-8719-bcd8d009d26a" positionType="Float" x="356" y="280" width="202" height="40" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{spouseAccommodation}.equals("N")?"No":"Yes"]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="7c83753b-473d-407b-97c7-361f8c64d1a5" x="8" y="320" width="280" height="60" fontSize="14.0" removeLineWhenBlank="true" bold="true" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{spouseAccommodation}.equals("Y")]]></printWhenExpression>
+				<text><![CDATA[ (b) Name of allotted designation and address (including type and no. of the flat):]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="bbfe30f5-7788-4e81-ab4c-dd7403d5924c" positionType="Float" x="288" y="320" width="260" height="60" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" removeLineWhenBlank="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<printWhenExpression><![CDATA[$F{spouseAccommodation}.equals("Y")]]></printWhenExpression>
+				<expression><![CDATA[$F{accommodationDetails}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="4d07470d-3591-44e3-a9ba-258246a20793" x="9" y="380" width="270" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[10. (a) Service to which officer belongs:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="1bc3d1a0-7002-44f8-8b28-eecf22e5d637" positionType="Float" x="279" y="380" width="280" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{service}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="9ef33170-a443-40cc-925b-a0195b7d7320" x="29" y="402" width="90" height="22" fontSize="14.0" removeLineWhenBlank="true" bold="true" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{otherService} != null && $F{otherService}.length() > 0]]></printWhenExpression>
+				<text><![CDATA[ (b) Details:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="228514bf-4898-43b7-8f07-75c6203f9685" positionType="Float" x="119" y="402" width="443" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" removeLineWhenBlank="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<printWhenExpression><![CDATA[$F{otherService} != null && $F{otherService}.length() > 0]]></printWhenExpression>
+				<expression><![CDATA[$F{otherService}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="016687d7-193a-4667-bf1e-a8622ae3d66c" x="29" y="424" width="364" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[ (c) Are you on deputation from Central Government:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="f641b82c-71f8-41f8-a241-06f7f44ccfa8" positionType="Float" x="393" y="424" width="170" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{deputation}.equals("N")?"No":"Yes"]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="6f7f8383-9731-4602-a5f8-bcd7c592404c" x="29" y="446" width="170" height="22" fontSize="14.0" removeLineWhenBlank="true" bold="true" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{deputationPeriod} != null && $F{deputationPeriod}.length() > 0]]></printWhenExpression>
+				<text><![CDATA[ (d) Period of deputation:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="c7bc48e2-4905-4b56-927b-f2a597cd1e39" positionType="Float" x="199" y="446" width="364" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" removeLineWhenBlank="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{deputationPeriod}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="9e3fae74-f1bb-49b7-88c9-256e573114d6" x="9" y="470" width="270" height="42" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[11. (a) Are you debarred from allotment of Government residence?]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="63d3d2e6-fbb2-4f92-848a-ca2a9009c07e" positionType="Float" x="279" y="470" width="280" height="42" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{debarredAllotment}.equals("N")?"No":"Yes"]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="53af9645-5e84-40a5-b868-f59abcb6502a" x="29" y="512" width="148" height="22" fontSize="14.0" removeLineWhenBlank="true" bold="true" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{debarredUpto} != null]]></printWhenExpression>
+				<text><![CDATA[ (b) Upto which date:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="d2bff04c-b753-4efb-b8a2-c80f89b2f7bb" positionType="Float" x="177" y="512" width="384" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" removeLineWhenBlank="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<printWhenExpression><![CDATA[$F{debarredUpto} != null]]></printWhenExpression>
+				<expression><![CDATA[$F{debarredUpto}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="48863fd8-88ca-423d-9501-920eb0296461" x="9" y="540" width="380" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[12. (a) Do you/your spouse own a house within Shillong?]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="0673c571-73cf-4838-92c9-936d64096166" positionType="Float" x="390" y="540" width="168" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{ownHouse}.equals("N")?"No":"Yes"]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="41f35165-f640-41c4-aeda-4452455c5585" x="29" y="562" width="190" height="22" fontSize="14.0" removeLineWhenBlank="true" bold="true" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{houseDetails} != null && $F{houseDetails}.length() > 0]]></printWhenExpression>
+				<text><![CDATA[ (b) Particulars of the house:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="23fdd1db-e227-4668-91b6-716146fadf3a" positionType="Float" x="219" y="562" width="342" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" removeLineWhenBlank="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<printWhenExpression><![CDATA[$F{houseDetails} != null && $F{houseDetails}.length() > 0]]></printWhenExpression>
+				<expression><![CDATA[$F{houseDetails}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="7c15e4ea-188e-493c-ac34-2679b3b22a12" x="9" y="588" width="331" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[13. (a) Have you taken House Building Advance?]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="39a5029c-d4a3-46d1-92e0-6af2b7f6d6aa" positionType="Float" x="340" y="588" width="219" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{houseBuildingAdvance}.equals("N")?"No":"Yes"]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="add44c08-d2fe-423e-a80c-aa10688ddcaf" x="29" y="610" width="254" height="22" fontSize="14.0" removeLineWhenBlank="true" bold="true" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{loanYear} != null]]></printWhenExpression>
+				<text><![CDATA[ (b) Year loan was taken:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="d0bd810b-ad29-4df2-a839-633a4221576f" positionType="Float" x="283" y="610" width="280" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" removeLineWhenBlank="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<printWhenExpression><![CDATA[$F{loanYear} != null]]></printWhenExpression>
+				<expression><![CDATA[$F{loanYear}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="0c189473-cb79-424b-bdf2-ba8d93615769" x="29" y="632" width="250" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[ (c) Have you constructed a house?]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="ff5f0e72-9a22-4758-9dd2-0df626a4c7be" positionType="Float" x="279" y="632" width="284" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{houseConstructed}.equals("N")?"No":"Yes"]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="fc6b531c-0344-414b-ab7c-4368353945c0" x="29" y="654" width="156" height="22" fontSize="14.0" removeLineWhenBlank="true" bold="true" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{houseLocation} != null && $F{houseLocation}.length() > 0]]></printWhenExpression>
+				<text><![CDATA[ (d) Location of house:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="6dbbb6b4-cc47-4bcd-999c-c787082cbb14" positionType="Float" x="185" y="654" width="378" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" removeLineWhenBlank="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<printWhenExpression><![CDATA[$F{houseLocation} != null && $F{houseLocation}.length() > 0]]></printWhenExpression>
+				<expression><![CDATA[$F{houseLocation}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="a78e72e9-d051-4fb5-9a1d-66f1d2fe0b0a" x="9" y="680" width="146" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[14. Present Address:]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="abdb5c75-7a40-48c9-8824-45903a8278e3" positionType="Float" x="155" y="680" width="405" height="22" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{presentAddress}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="7c7d6b59-d191-4b08-aae5-ff8e6b327c03" x="9" y="710" width="380" height="42" fontSize="14.0" bold="true" vTextAlign="Middle">
+				<text><![CDATA[15. (a) Does your department under which you are working has quarter at Shillong?]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="15fa0af1-923a-4efc-8225-7446abbf2863" positionType="Float" x="390" y="710" width="168" height="42" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<expression><![CDATA[$F{deptQuarter}.equals("N")?"No":"Yes"]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="cce2d4a1-8fc5-4d42-aa7f-e0e38b634921" x="29" y="752" width="190" height="39" fontSize="14.0" removeLineWhenBlank="true" bold="true" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{deptQuarterReason} != null && $F{deptQuarterReason}.length() > 0]]></printWhenExpression>
+				<text><![CDATA[ (b) Why are you not allotted department quarters?]]></text>
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="6fc11c04-6b50-4805-a5cf-f75277c29030" positionType="Float" x="219" y="752" width="342" height="39" fontName="Arial" fontSize="14.0" textAdjust="StretchHeight" blankWhenNull="true" removeLineWhenBlank="true" bold="false" underline="true" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+				<printWhenExpression><![CDATA[$F{deptQuarterReason} != null && $F{deptQuarterReason}.length() > 0]]></printWhenExpression>
+				<expression><![CDATA[$F{deptQuarterReason}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+				<box style="Detail">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<property name="com.jaspersoft.studio.layout"/>
+		</band>
+	</detail>
+	<pageFooter height="50">
+		<element kind="staticText" uuid="a4c46c5e-374c-4ec1-bbb8-2e1366767a08" positionType="Float" mode="Opaque" x="1" y="20" width="556" height="20" backcolor="#E6E8E9" fontName="Serif" fontSize="9.0" italic="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[*******]]></text>
+		</element>
+	</pageFooter>
+	<summary height="576" splitType="Immediate">
+		<element kind="staticText" uuid="1a0d7088-5af7-4865-8be1-41ec5f51fb36" positionType="Float" x="1" y="10" width="552" height="71" bold="true">
+			<text><![CDATA[Declaration
+1. I abide by the allotment of Meghalaya Government Residence (General Pool) Rules, 1990 as amended from time to time or relevant Alllotment Rules application.
+3. I agree to vacate the quarter on transfer or retirement, or whenever required by General Administration Department.]]></text>
+			<box>
+				<topPen lineWidth="1.1" lineStyle="Dashed"/>
+				<leftPen lineWidth="1.1" lineStyle="Dashed"/>
+				<bottomPen lineWidth="1.1" lineStyle="Dashed"/>
+				<rightPen lineWidth="1.1" lineStyle="Dashed"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="878fe256-121c-4cdb-94ff-2a281a7dda09" x="362" y="130" width="190" height="22" fontSize="12.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Signature of the applicant]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="d9a8902e-d897-4f37-bc04-69dee8fa81ce" x="3" y="170" width="552" height="22" fontSize="12.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[TO BE FILLED BY THE FORWARDING OFFICER]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box topPadding="2" leftPadding="0" bottomPadding="0" rightPadding="0">
+				<pen lineWidth="1.25" lineStyle="Solid"/>
+				<topPen lineWidth="1.25" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="1.25" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="1.25" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="1.25" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="3428e652-7791-4ebe-8e65-d58124df5e16" x="21" y="300" width="532" height="76" fontSize="14.0" bold="false" vTextAlign="Middle">
+			<text><![CDATA[1. Certified that particulars furnished by the Applicant have been verified from records and found correct.
+2. It is certified that the Applicant is entitled to rent free accommodation (Delete if not required)]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="c9868d84-97e1-4104-8dd1-b183ab75b5d0" x="267" y="450" width="216" height="22" fontSize="12.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Signature with date and Office Seal
+]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="7213dcc7-9430-4207-a1d4-78740ab2f5bd" x="267" y="480" width="94" height="22" fontSize="12.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Name:]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="ba31d9c8-fc22-42a0-b28d-d882e71997dd" x="267" y="502" width="84" height="20" fontSize="12.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Designation:]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="13cbc909-e6af-48b8-985d-298097736b91" x="267" y="522" width="84" height="20" fontSize="12.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Tele. No.]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="b624806b-50d5-4f89-b712-8e80ff041171" x="6" y="550" width="36" height="20" fontSize="12.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Date:]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="99d5ff9b-72ee-46dd-a090-b801f6dc8111" x="6" y="530" width="108" height="20" fontSize="12.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Endorsement No.:]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="textField" uuid="2674734c-2896-44c7-b269-d660ffead004" positionType="Float" x="95" y="201" width="448" height="79" forecolor="#D7D7D7" rotation="None" fontName="Arial" fontSize="60.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" hTextAlign="Left" vTextAlign="Middle" style="Detail">
+			<expression><![CDATA[$F{applicationNo}]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+			<box style="Detail">
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="113100c5-22be-450e-b3e6-d473fd32d7b1" x="7" y="249" width="180" height="36" fontSize="14.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Address of place of duty of the applicant:]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="2153838f-d0f5-45b2-b1c5-0fd62e97b4a1" x="8" y="227" width="94" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Officer name:]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="e90b3743-dfee-4ded-9702-7afae66fd31b" x="8" y="205" width="88" height="22" fontSize="14.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[Department:]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="1250ed95-3492-47e3-a36a-687c9fff1d80" x="267" y="466" width="216" height="14" fontSize="10.0" bold="true" vTextAlign="Middle">
+			<text><![CDATA[(Place signature & seal in box provided)]]></text>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<box>
+				<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+			</box>
+		</element>
+		<element kind="image" uuid="b58c5b4b-3113-4d29-8774-b33b856813a9" stretchType="ContainerHeight" x="266" y="376" width="214" height="74" scaleImage="FillFrame" linkType="None" linkTarget="Self" printInFirstWholeBand="true" hImageAlign="Center">
+			<expression><![CDATA["background.jpg"]]></expression>
+			<property name="com.jaspersoft.studio.unit.width" value="px"/>
+		</element>
+		<element kind="textField" uuid="9d0fa7e3-e862-4edd-9810-977e891623f7" positionType="Float" x="266" y="376" width="215" height="74" forecolor="#C8C8C8" rotation="None" fontName="Arial" fontSize="26.0" textAdjust="StretchHeight" blankWhenNull="true" bold="false" hTextAlign="Center" vTextAlign="Middle" style="Detail">
+			<expression><![CDATA[$F{applicationNo}]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3420094d-55d4-486b-9b02-57a6d73b6438"/>
+			<box style="Detail">
+				<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8C8C8"/>
+				<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8C8C8"/>
+				<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8C8C8"/>
+				<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#C8C8C8"/>
+			</box>
+		</element>
+	</summary>
+</jasperReport>
