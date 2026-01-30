@@ -23,6 +23,7 @@ public class VisitorService {
 	
 	private final VisitorRepository visitorRepository;
 	private final VisitorPhotoRepository visitorPhotoRepository;
+	private final PhotoStorageService photoStorageService;
 	
 	@Transactional
     public String createVisitor(
@@ -47,43 +48,30 @@ public class VisitorService {
         visitor = visitorRepository.save(visitor);
 
         /* 2️⃣ Store photo on disk */
-        String storedPath = storePhoto(photo, visitor.getId());
-
-        /* 3️⃣ Save photo metadata */
-        VisitorPhoto visitorPhoto = VisitorPhoto.builder()
-                .path(storedPath)
-                .extension(getExtension(photo.getOriginalFilename()))
-                .visitor(visitor)
-                .build();
-
-        visitorPhotoRepository.save(visitorPhoto);
-
-        /* 4️⃣ Build response */
-        return "Uploaded successfully";
-    }
-
-    /* ================= HELPER METHODS ================= */
-
-    private String storePhoto(MultipartFile photo, Long visitorId) {
-
-        if (photo.isEmpty()) {
-            throw new RuntimeException("Photo file is empty");
-        }
-
+        //String storedPath = storePhoto(photo, visitor.getId());
+        String storedPath = null;
         try {
-            String uploadDir = "uploads/visitors/" + visitorId;
-            Files.createDirectories(Paths.get(uploadDir));
+            storedPath = photoStorageService.storeVisitorPhoto(photo, visitor.getId());
 
-            String filename = System.currentTimeMillis() + "_" + photo.getOriginalFilename();
-            Path filePath = Paths.get(uploadDir, filename);
+            VisitorPhoto visitorPhoto = VisitorPhoto.builder()
+                    .path(storedPath)
+                    .extension(getExtension(photo.getOriginalFilename()))
+                    .visitor(visitor)
+                    .build();
 
-            Files.copy(photo.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+            visitorPhotoRepository.save(visitorPhoto);
 
-            return filePath.toString();
+            return "Uploaded successfully";
 
         } catch (Exception e) {
-            throw new RuntimeException("Failed to store photo", e);
+            if (storedPath != null) {
+                try {
+                    Files.deleteIfExists(Paths.get(storedPath));
+                } catch (Exception ignored) {}
+            }
+            throw e;
         }
+
     }
 
     private String getExtension(String filename) {

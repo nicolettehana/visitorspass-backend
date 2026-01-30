@@ -54,7 +54,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 
-		.authorizeHttpRequests(auth -> auth .requestMatchers("/auth/**", "/csrf-token","/api/**","/my-report","/api2").permitAll() 
+		.authorizeHttpRequests(auth -> auth .requestMatchers("/auth/**", "/csrf-token","/api/**","/my-report","/api2","/visitor","/visitor/**").permitAll() 
 				.requestMatchers(GET, "/users/get-user-info").hasAnyAuthority(USER.name(), ADMIN.name()) 
 				.requestMatchers(GET, "/menu","/status","/year-range","/items/**","/category/**","/firms/**","/unit/**","rates/**","/purchase/**","/issue/**","/stock/**","/ledger/**") .hasAnyAuthority(ADMIN.name(), PUR.name(), USER.name(), ISS.name(), SAD.name()) 
 				.requestMatchers(GET, "/users/profile") .hasAnyAuthority(ADMIN.name(), PUR.name(), USER.name(), ISS.name(), SAD.name()) 
@@ -64,6 +64,7 @@ public class SecurityConfig {
 				.requestMatchers(POST, "/issue/create").hasAnyAuthority(SAD.name(), ISS.name())
 				.requestMatchers(GET,"/audit-trail/**","/users/all/**").hasAnyAuthority(ADMIN.name()) 
 				.requestMatchers(POST,"/users/enable-disable/**").hasAnyAuthority(ADMIN.name()) 
+				//.requestMatchers(POST,"/visitor","/visitor/**").permitAll() 
 				 )
 				
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
