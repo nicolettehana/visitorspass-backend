@@ -3,6 +3,8 @@ package sad.storereg.models.appdata;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,6 +38,9 @@ public class Visitor {
         allocationSize = 1
     )
     private Long id;
+	
+	@Column(name = "v_pass_no")
+    private String vPassNo;
 
     private String name;
 
@@ -63,9 +68,11 @@ public class Visitor {
 
     /* Relationships */
 
+    @JsonIgnore
     @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VisitorPhoto> photos;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VisitorPass> passes;
 

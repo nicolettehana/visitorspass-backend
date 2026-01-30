@@ -72,7 +72,6 @@ public class FirmController {
     @GetMapping({ "/list" })
     public List<FirmsDTO> getListFirms(@RequestParam(defaultValue = "") LocalDate date
     ) {
-    	System.out.println("Date: "+date);
     	if(date!=null) 
     	
     		return firmService.getFirmsListByDate(date);

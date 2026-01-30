@@ -4,8 +4,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +31,7 @@ public class VisitorService {
 	private final PhotoStorageService photoStorageService;
 	
 	@Transactional
-    public String createVisitor(
+    public Visitor createVisitor(
             VisitorRequestDto dto,
             MultipartFile photo
     ) {
@@ -46,6 +51,15 @@ public class VisitorService {
                 .build();
 
         visitor = visitorRepository.save(visitor);
+        
+     // 2️⃣ Generate Visitor Pass No
+        String vPassNo = "VPASS-" +
+                LocalDate.now().getYear() +"-"+
+                String.format("%06d", visitor.getId());
+
+        // 3️⃣ Update and save again
+        visitor.setVPassNo(vPassNo);
+        visitorRepository.save(visitor);
 
         /* 2️⃣ Store photo on disk */
         //String storedPath = storePhoto(photo, visitor.getId());
@@ -61,7 +75,7 @@ public class VisitorService {
 
             visitorPhotoRepository.save(visitorPhoto);
 
-            return "Uploaded successfully";
+            return visitor;
 
         } catch (Exception e) {
             if (storedPath != null) {
@@ -79,6 +93,23 @@ public class VisitorService {
             return "";
         }
         return filename.substring(filename.lastIndexOf('.') + 1);
+    }
+    
+    public Page<Visitor> getVisitorsBetweenDates(
+            LocalDate startDate,
+            LocalDate endDate,
+            String search,
+            Pageable pageable
+    ) {
+    	LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(LocalTime.MAX);
+
+        return visitorRepository.searchVisitorsBetweenDates(
+                startDateTime,
+                endDateTime,
+                search,
+                pageable
+        );
     }
 
 }

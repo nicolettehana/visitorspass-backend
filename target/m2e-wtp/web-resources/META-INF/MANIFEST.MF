@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Build-Jdk-Spec: 21
-Implementation-Title: storereg
+Build-Jdk-Spec: 19
+Implementation-Title: visitorpass
 Implementation-Version: 3.3.3
 Created-By: Maven Integration for Eclipse
 
