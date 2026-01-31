@@ -27,7 +27,6 @@ import sad.storereg.repo.appdata.VisitorRepository;
 public class VisitorService {
 	
 	private final VisitorRepository visitorRepository;
-	private final VisitorPhotoRepository visitorPhotoRepository;
 	private final PhotoStorageService photoStorageService;
 	
 	@Transactional
@@ -55,7 +54,7 @@ public class VisitorService {
      // 2️⃣ Generate Visitor Pass No
         String vPassNo = "VPASS-" +
                 LocalDate.now().getYear() +"-"+
-                String.format("%06d", visitor.getId());
+                String.format("%05d", visitor.getId());
 
         // 3️⃣ Update and save again
         visitor.setVPassNo(vPassNo);
@@ -65,15 +64,15 @@ public class VisitorService {
         //String storedPath = storePhoto(photo, visitor.getId());
         String storedPath = null;
         try {
-            storedPath = photoStorageService.storeVisitorPhoto(photo, visitor.getId());
+            storedPath = photoStorageService.storeVisitorPhoto(photo, visitor.getVPassNo());
 
-            VisitorPhoto visitorPhoto = VisitorPhoto.builder()
-                    .path(storedPath)
-                    .extension(getExtension(photo.getOriginalFilename()))
-                    .visitor(visitor)
-                    .build();
-
-            visitorPhotoRepository.save(visitorPhoto);
+//            VisitorPhoto visitorPhoto = VisitorPhoto.builder()
+//                    .path(storedPath)
+//                    .extension(getExtension(photo.getOriginalFilename()))
+//                    .visitor(visitor)
+//                    .build();
+//
+//            visitorPhotoRepository.save(visitorPhoto);
 
             return visitor;
 

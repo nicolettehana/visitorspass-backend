@@ -27,7 +27,7 @@ public class PhotoStorageService {
     private static final Set<String> ALLOWED_CONTENT_TYPES =
             Set.of("image/jpeg", "image/png");
 
-    public String storeVisitorPhoto(MultipartFile file, Long visitorId) {
+    public String storeVisitorPhoto(MultipartFile file, String vPassNo) {
 
         validate(file);
 
@@ -42,10 +42,12 @@ public class PhotoStorageService {
             BufferedImage resized = resize(originalImage, 400, 400);
 
             String extension = getExtension(file.getOriginalFilename());
-            String filename = "visitor_" + System.currentTimeMillis() + "." + extension;
+            String filename = vPassNo+ "." + extension;
 
-            Path visitorDir = Paths.get(baseDir, String.valueOf(visitorId));
-            Files.createDirectories(visitorDir);
+            //Path visitorDir = Paths.get(baseDir, String.valueOf(visitorId));
+            //Files.createDirectories(visitorDir);
+            
+            Path visitorDir = Paths.get(baseDir);
 
             Path outputPath = visitorDir.resolve(filename);
 

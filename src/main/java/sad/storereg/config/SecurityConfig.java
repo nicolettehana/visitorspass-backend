@@ -55,7 +55,8 @@ public class SecurityConfig {
 		http.csrf().disable()
 
 		.authorizeHttpRequests(auth -> auth .requestMatchers("/auth/**", "/csrf-token","/api/**","/my-report","/api2").permitAll()
-				.requestMatchers("/visitor","/visitor/**").permitAll() 
+				//.requestMatchers("/visitor","/visitor/**").hasAnyAuthority(SAD.name())
+				.requestMatchers("/visitor","/visitor/**").permitAll()
 				.requestMatchers(GET, "/users/get-user-info").hasAnyAuthority(USER.name(), ADMIN.name()) 
 				.requestMatchers(GET, "/menu","/status","/year-range","/items/**","/category/**","/firms/**","/unit/**","rates/**","/purchase/**","/issue/**","/stock/**","/ledger/**") .hasAnyAuthority(ADMIN.name(), PUR.name(), USER.name(), ISS.name(), SAD.name()) 
 				.requestMatchers(GET, "/users/profile") .hasAnyAuthority(ADMIN.name(), PUR.name(), USER.name(), ISS.name(), SAD.name()) 

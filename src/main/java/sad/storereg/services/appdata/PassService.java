@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,7 +33,9 @@ import com.itextpdf.layout.properties.UnitValue;
 import com.itextpdf.layout.properties.VerticalAlignment;
 
 import lombok.RequiredArgsConstructor;
+import sad.storereg.dto.appdata.PhotoData;
 import sad.storereg.models.appdata.Visitor;
+import sad.storereg.repo.appdata.VisitorRepository;
 
 import org.springframework.core.io.ClassPathResource;
 
@@ -41,7 +44,10 @@ import org.springframework.core.io.ClassPathResource;
 @RequiredArgsConstructor
 public class PassService {
 	
+	@Value("${passes.dir}")
+    private String baseDir;
 	private final VisitorPhotoService visitorPhotoService;
+	private final VisitorRepository visitorRepository;
 	
 	@Value("${passes.dir}")
 	private String passesDir;
@@ -111,7 +117,7 @@ public class PassService {
 	        left.add(new Paragraph("Address : " + visitor.getAddress())); left.add(new Paragraph("Visit Date & Time : " + visitor.getVisitDateTime().format(formatter))); 
 	        left.add(new Paragraph("Purpose of Visit : " + visitor.getPurpose())); mainTable.addCell(left); 
 	        
-	        Image photoImg = new Image(ImageDataFactory.create(visitorPhotoService.getVisitorPhoto(visitor.getId()))) .setWidth(120) .setHeight(150) .setAutoScale(true); 
+	        Image photoImg = new Image(ImageDataFactory.create(visitorPhotoService.getVisitorPhoto(visitor.getId()).data())) .setWidth(100)  .setAutoScale(true); 
 	        
 	        Cell right = new Cell() .setBorder(Border.NO_BORDER) .setTextAlignment(TextAlignment.CENTER) .setVerticalAlignment(VerticalAlignment.TOP) .add(photoImg); 
 	        mainTable.addCell(right); document.add(mainTable); 
@@ -144,6 +150,27 @@ public class PassService {
 	        return resource.getInputStream().readAllBytes();
 	    } catch (Exception e) {
 	        throw new RuntimeException("Unable to load logo image", e);
+	    }
+	}
+
+	
+	public PhotoData getVisitorPassPdf(Long visitorCode) {
+	    Visitor visitor = visitorRepository.findById(visitorCode)
+	            .orElseThrow(() -> new RuntimeException("Visitor not found"));
+	    Path pdfPath = Paths.get(baseDir, visitor.getVPassNo() + ".pdf");
+
+	    if (!Files.exists(pdfPath)) {
+	        throw new RuntimeException(
+	                "Visitor pass PDF not found for pass no: " + visitor.getVPassNo()
+	        );
+	    }
+
+	    try {
+	        byte[] bytes = Files.readAllBytes(pdfPath);
+	        return new PhotoData(bytes, "application/pdf");
+
+	    } catch (IOException e) {
+	        throw new RuntimeException("Unable to read visitor pass PDF", e);
 	    }
 	}
 

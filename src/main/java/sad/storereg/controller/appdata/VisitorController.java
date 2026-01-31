@@ -14,24 +14,26 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.lowagie.text.DocumentException;
 
-import jakarta.validation.Valid;
-
+import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
 import lombok.RequiredArgsConstructor;
 import sad.storereg.annotations.Auditable;
+import sad.storereg.dto.appdata.PhotoData;
 import sad.storereg.dto.appdata.VisitorRequestDto;
 import sad.storereg.models.appdata.Visitor;
-import sad.storereg.repo.appdata.VisitorRepository;
 import sad.storereg.services.appdata.PassService;
+import sad.storereg.services.appdata.ReportService;
 import sad.storereg.services.appdata.VisitorPhotoService;
 import sad.storereg.services.appdata.VisitorService;
 
@@ -43,6 +45,7 @@ public class VisitorController {
 	private final VisitorService visitorService;
 	private final VisitorPhotoService visitorPhotoService;
 	private final PassService passService;
+	private final ReportService reportService;
 	
 	@Auditable
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -76,7 +79,7 @@ public class VisitorController {
  	        @RequestParam(defaultValue = "") String search
     ) {
 
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
 
         return visitorService.getVisitorsBetweenDates(startDate,endDate,search, pageable);
     }
@@ -85,13 +88,48 @@ public class VisitorController {
     public ResponseEntity<byte[]> getVisitorPhoto(
             @PathVariable Long visitorCode
     ) {
-        byte[] imageBytes = visitorPhotoService.getVisitorPhoto(visitorCode);
-        String contentType = visitorPhotoService.getVisitorPhotoContentType(visitorCode);
+        PhotoData photoData = visitorPhotoService.getVisitorPhoto(visitorCode);
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline")
-                .contentType(MediaType.parseMediaType(contentType))
-                .body(imageBytes);
+                .contentType(MediaType.parseMediaType(photoData.contentType()))
+                .body(photoData.data());
     }
+    
+    @GetMapping("/{visitorCode}/pass")
+    public ResponseEntity<byte[]> getVisitorPass(@PathVariable Long visitorCode) {
+        PhotoData pdfData = passService.getVisitorPassPdf(visitorCode);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(pdfData.contentType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=visitor-pass.pdf")
+                .body(pdfData.data());
+    }
+    
+    @GetMapping("/export")
+    public ResponseEntity<byte[]> generateReport(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @RequestParam String format) throws Exception {
+
+        byte[] pdfBytes = reportService.generateVisitorReport(startDate, endDate)
+                                       ;   // consume once here
+        
+        if (pdfBytes.length <= 1024) {   // rough empty check
+            throw new RuntimeException("Generated PDF is empty or too small");
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=visitor_report.pdf");
+
+        return ResponseEntity.ok()                
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=visitor_report.pdf")
+	            .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
+    }
+    
+
+    
+
 
 }
