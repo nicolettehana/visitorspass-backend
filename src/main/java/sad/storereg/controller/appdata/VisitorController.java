@@ -34,6 +34,7 @@ import sad.storereg.dto.appdata.VisitorRequestDto;
 import sad.storereg.models.appdata.Visitor;
 import sad.storereg.services.appdata.PassService;
 import sad.storereg.services.appdata.ReportService;
+import sad.storereg.services.appdata.ReportServiceExcel;
 import sad.storereg.services.appdata.VisitorPhotoService;
 import sad.storereg.services.appdata.VisitorService;
 
@@ -46,6 +47,7 @@ public class VisitorController {
 	private final VisitorPhotoService visitorPhotoService;
 	private final PassService passService;
 	private final ReportService reportService;
+	private final ReportServiceExcel reportServiceExcel;
 	
 	@Auditable
 	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -112,21 +114,38 @@ public class VisitorController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @RequestParam String format) throws Exception {
 
-        byte[] pdfBytes = reportService.generateVisitorReport(startDate, endDate)
-                                       ;   // consume once here
-        
-        if (pdfBytes.length <= 1024) {   // rough empty check
-            throw new RuntimeException("Generated PDF is empty or too small");
+        byte[] fileBytes;
+        String fileName;
+        MediaType mediaType;
+
+        if ("PDF".equalsIgnoreCase(format)) {
+            fileBytes = reportService.generateVisitorReport(startDate, endDate);
+            fileName = "visitor_report.pdf";
+            mediaType = MediaType.APPLICATION_PDF;
+
+        } else if ("EXCEL".equalsIgnoreCase(format)) {
+            fileBytes = reportServiceExcel.generateVisitorReportExcel(startDate, endDate);
+            fileName = "visitor_report.xlsx";
+            mediaType = MediaType.parseMediaType(
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+
+        } else {
+            throw new IllegalArgumentException("Invalid format. Use PDF or EXCEL");
+        }
+
+        if (fileBytes == null || fileBytes.length < 100) {
+            throw new RuntimeException("Generated file is empty");
         }
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=visitor_report.pdf");
+        headers.setContentDispositionFormData("attachment", fileName);
+        headers.setContentType(mediaType);
 
-        return ResponseEntity.ok()                
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=visitor_report.pdf")
-	            .contentType(MediaType.APPLICATION_PDF)
-                .body(pdfBytes);
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(fileBytes);
     }
+
     
 
     

@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import sad.storereg.dto.appdata.PhotoData;
 import sad.storereg.models.appdata.Visitor;
-import sad.storereg.models.appdata.VisitorPhoto;
-import sad.storereg.repo.appdata.VisitorPhotoRepository;
 import sad.storereg.repo.appdata.VisitorRepository;
 
 @Service
@@ -22,7 +20,6 @@ public class VisitorPhotoService {
 	@Value("${photos.dir}")
     private String baseDir;
 	
-	private final VisitorPhotoRepository visitorPhotoRepository;
 	private final VisitorRepository visitorRepository;
 	
 	public PhotoData getVisitorPhoto(Long visitorCode) {
@@ -56,16 +53,16 @@ public class VisitorPhotoService {
 	    );
 	}
 	
-	public String getVisitorPhotoContentType(Long visitorId) {
-        VisitorPhoto photo = visitorPhotoRepository
-                .findFirstByVisitor_Id(visitorId)
-                .orElseThrow(() -> new RuntimeException("Visitor photo not found"));
-
-        return switch (photo.getExtension().toLowerCase()) {
-            case "png" -> "image/png";
-            case "jpg", "jpeg" -> "image/jpeg";
-            default -> "application/octet-stream";
-        };
-    }
+//	public String getVisitorPhotoContentType(Long visitorId) {
+//        VisitorPhoto photo = visitorPhotoRepository
+//                .findFirstByVisitor_Id(visitorId)
+//                .orElseThrow(() -> new RuntimeException("Visitor photo not found"));
+//
+//        return switch (photo.getExtension().toLowerCase()) {
+//            case "png" -> "image/png";
+//            case "jpg", "jpeg" -> "image/jpeg";
+//            default -> "application/octet-stream";
+//        };
+//    }
 
 }

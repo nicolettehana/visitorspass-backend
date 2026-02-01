@@ -18,8 +18,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import sad.storereg.dto.appdata.VisitorRequestDto;
 import sad.storereg.models.appdata.Visitor;
-import sad.storereg.models.appdata.VisitorPhoto;
-import sad.storereg.repo.appdata.VisitorPhotoRepository;
 import sad.storereg.repo.appdata.VisitorRepository;
 
 @Service

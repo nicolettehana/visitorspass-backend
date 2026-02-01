@@ -66,14 +66,5 @@ public class Visitor {
 
     private LocalDateTime entrydate;
 
-    /* Relationships */
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VisitorPhoto> photos;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<VisitorPass> passes;
 
 }

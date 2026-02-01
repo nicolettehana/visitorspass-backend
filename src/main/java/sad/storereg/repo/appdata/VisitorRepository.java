@@ -28,6 +28,8 @@ public interface VisitorRepository extends JpaRepository<Visitor, Long>{
 	                OR LOWER(v.name) LIKE LOWER(CONCAT('%', :search, '%'))
 	                OR LOWER(v.mobileNo) LIKE LOWER(CONCAT('%', :search, '%'))
 	                OR LOWER(v.address) LIKE LOWER(CONCAT('%', :search, '%'))
+	                OR LOWER(v.vPassNo) LIKE LOWER(CONCAT('%', :search, '%'))
+	                OR LOWER(v.purposeDetails) LIKE LOWER(CONCAT('%', :search, '%'))
 	          )
 	    """)
 	    Page<Visitor> searchVisitorsBetweenDates(

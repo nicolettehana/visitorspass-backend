@@ -27,7 +27,8 @@ public class KaptchaConfig {
         properties.setProperty("kaptcha.textproducer.font.names", "Arial");
         properties.setProperty("kaptcha.noise.color", "black");
         properties.setProperty("kaptcha.obscurificator.impl", "com.google.code.kaptcha.impl.WaterRipple");
-        properties.setProperty("kaptcha.background.clear.from", "217,229,243");
+        //properties.setProperty("kaptcha.background.clear.from", "217,229,243");
+        properties.setProperty("kaptcha.background.clear.from", "231,240,230");
         properties.setProperty("kaptcha.background.clear.to", "255,255,255");
 
 

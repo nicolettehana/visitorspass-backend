@@ -49,7 +49,7 @@ public class ReportService {
         document.setMargins(20, 20, 20, 20);
 
         // Title
-        Paragraph title = new Paragraph("Visitor Report")
+        Paragraph title = new Paragraph("Visitors")
                 .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
                 .setFontSize(16)
                 .setTextAlignment(TextAlignment.CENTER)
@@ -128,4 +128,6 @@ public class ReportService {
         //return new ByteArrayInputStream(out.toByteArray());
         return bytes;
     }
+	
+	
 }
