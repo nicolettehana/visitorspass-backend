@@ -2,6 +2,7 @@ package sad.storereg.repo.appdata;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,14 +32,19 @@ public interface VisitorRepository extends JpaRepository<Visitor, Long>{
 	                OR LOWER(v.vPassNo) LIKE LOWER(CONCAT('%', :search, '%'))
 	                OR LOWER(v.purposeDetails) LIKE LOWER(CONCAT('%', :search, '%'))
 	          )
+	          AND v.officeCode = :officeCode
 	    """)
 	    Page<Visitor> searchVisitorsBetweenDates(
 	            @Param("startDateTime") LocalDateTime startDateTime,
 	            @Param("endDateTime") LocalDateTime endDateTime,
 	            @Param("search") String search,
+	            @Param("officeCode") Integer officeCode,
 	            Pageable pageable
 	    );
 	
-	List<Visitor> findByVisitDateTimeBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
+	List<Visitor> findByVisitDateTimeBetweenAndOfficeCodeEquals(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer officeCode);
+	
+	Optional<Visitor> findTopByMobileNo(String mobileNo);
+
 
 }

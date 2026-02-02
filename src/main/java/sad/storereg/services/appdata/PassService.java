@@ -48,13 +48,14 @@ public class PassService {
     private String baseDir;
 	private final VisitorPhotoService visitorPhotoService;
 	private final VisitorRepository visitorRepository;
+	private final CoreServices coreService;
 	
 	@Value("${passes.dir}")
 	private String passesDir;
 	
 	public byte[] generateQrCode(Visitor visitor) throws Exception {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
-		String text ="Name:"+visitor.getName()+"\n"+"Visit Date:"+visitor.getVisitDateTime().format(formatter)+"\n"+"Purpose:"+visitor.getPurpose()+"\n"+"e-Pass no:"+visitor.getVPassNo();
+		String text ="Name:"+visitor.getName()+"\n"+"Visit Date:"+visitor.getVisitDateTime().format(formatter)+"\n"+"Purpose:"+visitor.getPurpose()+", "+visitor.getPurposeDetails()+"\n"+"e-Pass no:"+visitor.getVPassNo()+"\n Building: "+coreService.getOfficeName(visitor.getOfficeCode());
 	    BitMatrix matrix = new QRCodeWriter()
 	            .encode(text, BarcodeFormat.QR_CODE, 150, 150);
 
@@ -77,32 +78,39 @@ public class PassService {
 	        PdfDocument pdf = new PdfDocument(writer);
 	        Document document = new Document(pdf, PageSize.A4);
 	        
-	        document.setMargins(30, 40, 30, 40);
+	        //document.setMargins(30, 40, 30, 40);
+	        document.setMargins(20, 25, 20, 25);
 	        
 	        byte[] logoBytes = loadLogo();
 
 	        Image logo = new Image(ImageDataFactory.create(logoBytes))
-	                .setWidth(70)
+	                .setWidth(50)
 	                .setHorizontalAlignment(HorizontalAlignment.CENTER);
 
 	        document.add(logo);
 	        
 	        document.add(new Paragraph("GOVERNMENT OF MEGHALAYA")
 	                .setBold()
-	                .setFontSize(14)
+	                .setFontSize(11)
 	                .setTextAlignment(TextAlignment.CENTER)
 	                .setMarginTop(0)
 	                .setMarginBottom(2));
 
 	        document.add(new Paragraph("SECRETARIAT ADMINISTRATION DEPARTMENT")
-	                .setFontSize(11)
+	                .setFontSize(9)
+	                .setTextAlignment(TextAlignment.CENTER)
+	                .setMarginTop(0)
+	                .setMarginBottom(2));
+	        
+	        document.add(new Paragraph(coreService.getOfficeName(visitor.getOfficeCode()))
+	                .setFontSize(9)
 	                .setTextAlignment(TextAlignment.CENTER)
 	                .setMarginTop(0)
 	                .setMarginBottom(2));
 
-	        document.add(new Paragraph("e-VISITOR PASS No : " + visitor.getVPassNo())
+	        document.add(new Paragraph("e-VISITOR PASS No. : " + visitor.getVPassNo())
 	                .setBold()
-	                .setFontSize(11)
+	                .setFontSize(9)
 	                .setMarginTop(0)
 	                .setMarginBottom(5)
 	                .setTextAlignment(TextAlignment.CENTER));
@@ -114,24 +122,25 @@ public class PassService {
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a"); 
 	        
 	        left.add(new Paragraph("Applicant's Name : " + visitor.getName())); 
-	        left.add(new Paragraph("Address : " + visitor.getAddress())); left.add(new Paragraph("Visit Date & Time : " + visitor.getVisitDateTime().format(formatter))); 
-	        left.add(new Paragraph("Purpose of Visit : " + visitor.getPurpose())); mainTable.addCell(left); 
+	        left.add(new Paragraph("Address : " + visitor.getAddress()+", "+visitor.getState())); 
+	        left.add(new Paragraph("Visit Date & Time : " + visitor.getVisitDateTime().format(formatter))); 
+	        left.add(new Paragraph("Purpose of Visit : " + visitor.getPurpose()+", "+visitor.getPurposeDetails())); 
+	        Image qrImg = new Image(ImageDataFactory.create(generateQrCode(visitor))) .setWidth(90) .setHorizontalAlignment(HorizontalAlignment.LEFT) .setMarginTop(10); 
+	        left.add(qrImg);
+	        mainTable.addCell(left); 
 	        
-	        Image photoImg = new Image(ImageDataFactory.create(visitorPhotoService.getVisitorPhoto(visitor.getId()).data())) .setWidth(100)  .setAutoScale(true); 
+	        Image photoImg = new Image(ImageDataFactory.create(visitorPhotoService.getVisitorPhoto(visitor.getId()).data())) .setWidth(80)  .setAutoScale(true); 
 	        
 	        Cell right = new Cell() .setBorder(Border.NO_BORDER) .setTextAlignment(TextAlignment.CENTER) .setVerticalAlignment(VerticalAlignment.TOP) .add(photoImg); 
-	        mainTable.addCell(right); document.add(mainTable); 
+	        mainTable.addCell(right);
+	        document.add(mainTable); 
 	        
-	        Image qrImg = new Image(ImageDataFactory.create(generateQrCode(visitor))) .setWidth(120) .setHorizontalAlignment(HorizontalAlignment.RIGHT) .setMarginTop(20); 
-	        document.add(qrImg);
-
 	        document.add(new Paragraph(
 	                "This visitor pass is valid for a period of 4 hours from the date & time of visit.\n"
-	              + "Any QR code scanning application can scan the above QR Code. The URL on the QR Code will allow\r\n"
-	              + "access to the digital version of this certificate.")
-	                .setFontSize(9)
+	              + "Any QR code scanning application can scan the above QR Code. The URL on the QR Code will allow access to the digital version of this certificate.")
+	                .setFontSize(8)
 	                .setTextAlignment(TextAlignment.CENTER)
-	                .setMarginTop(10));
+	                .setMarginTop(0));
 
 	        
 	        document.close();

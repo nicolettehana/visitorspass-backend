@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -25,20 +26,25 @@ import com.itextpdf.layout.properties.UnitValue;
 
 import lombok.RequiredArgsConstructor;
 import sad.storereg.models.appdata.Visitor;
+import sad.storereg.models.master.Office;
 import sad.storereg.repo.appdata.VisitorRepository;
+import sad.storereg.repo.master.OfficeRepository;
 
 @Service
 @RequiredArgsConstructor
 public class ReportService {
 	
 	private final VisitorRepository visitorRepository;
+	private final OfficeRepository officeRepository;
 
-	public byte[] generateVisitorReport(LocalDate startDate, LocalDate endDate) throws Exception {
+	public byte[] generateVisitorReport(LocalDate startDate, LocalDate endDate, Integer officeCode) throws Exception {
         LocalDateTime startDateTime = startDate.atStartOfDay();
         LocalDateTime endDateTime = endDate.atTime(LocalTime.MAX);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
+        Optional<Office> office = officeRepository.findByOfficeCode(officeCode);
+        String building = office.isEmpty()?"":office.get().getOfficeName();
 
-        List<Visitor> visitors = visitorRepository.findByVisitDateTimeBetween(startDateTime, endDateTime);
+        List<Visitor> visitors = visitorRepository.findByVisitDateTimeBetweenAndOfficeCodeEquals(startDateTime, endDateTime, officeCode);
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -49,12 +55,13 @@ public class ReportService {
         document.setMargins(20, 20, 20, 20);
 
         // Title
-        Paragraph title = new Paragraph("Visitors")
+        Paragraph title = new Paragraph("Government of Meghalaya \n "+building+" \n Visitors")
                 .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD))
                 .setFontSize(16)
                 .setTextAlignment(TextAlignment.CENTER)
                 .setMarginBottom(20);
         document.add(title);
+        
         
      // ← Add this block: Date range info
         DateTimeFormatter dateOnly = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -63,7 +70,7 @@ public class ReportService {
             .add(new Paragraph("Date: " + startDate.format(dateOnly)+" ")
                 .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA))
                 .setFontSize(12))
-            .add(new Paragraph(" to: " + endDate.format(dateOnly))
+            .add(new Paragraph(" to " + endDate.format(dateOnly))
                 .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA))
                 .setFontSize(12))
             .setTextAlignment(TextAlignment.LEFT)
@@ -109,7 +116,7 @@ public class ReportService {
             table.addCell(new Cell().add(new Paragraph(v.getPurpose())));
             table.addCell(new Cell().add(new Paragraph(v.getPurposeDetails())));
             table.addCell(new Cell().add(new Paragraph(v.getVisitDateTime().format(formatter))));
-            table.addCell(new Cell().add(new Paragraph(v.getAddress())));
+            table.addCell(new Cell().add(new Paragraph(v.getAddress()+", "+v.getState())));
         }
 
         document.add(table);

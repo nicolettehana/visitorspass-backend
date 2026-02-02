@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +31,8 @@ public class VisitorService {
 	@Transactional
     public Visitor createVisitor(
             VisitorRequestDto dto,
-            MultipartFile photo
+            MultipartFile photo,
+            Integer officeCode
     ) {
 
         /* 1️⃣ Save Visitor */
@@ -45,6 +47,7 @@ public class VisitorService {
                 .email(dto.getEmail())
                 .visitDateTime(dto.getVisitDateTime())
                 .entrydate(LocalDateTime.now())
+                .officeCode(officeCode)
                 .build();
 
         visitor = visitorRepository.save(visitor);
@@ -96,6 +99,7 @@ public class VisitorService {
             LocalDate startDate,
             LocalDate endDate,
             String search,
+            Integer officeCode,
             Pageable pageable
     ) {
     	LocalDateTime startDateTime = startDate.atStartOfDay();
@@ -105,8 +109,13 @@ public class VisitorService {
                 startDateTime,
                 endDateTime,
                 search,
+                officeCode,
                 pageable
         );
+    }
+    
+    public Optional<Visitor> getData(String mobileNo){
+    	return visitorRepository.findTopByMobileNo(mobileNo);
     }
 
 }

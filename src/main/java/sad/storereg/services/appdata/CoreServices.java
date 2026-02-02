@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import sad.storereg.models.auth.User;
+import sad.storereg.models.master.Office;
 import sad.storereg.repo.auth.UserRepository;
+import sad.storereg.repo.master.OfficeRepository;
 @Service
 @RequiredArgsConstructor
 public class CoreServices {
 	
 	private final UserRepository userRepo;
+	private final OfficeRepository officeRepository;
 	
 	public String getClientIp(HttpServletRequest request) {
 		String ipAddress = request.getHeader("X-Forwarded-For");
@@ -43,6 +46,14 @@ public class CoreServices {
 			email = email.replace("@", "[at]");
 		}
 		return email;
+	}
+	
+	public String getOfficeName(Integer officeCode) {
+		String officeName="";
+		Optional<Office> office = officeRepository.findByOfficeCode(officeCode);
+		if(office.isPresent())
+			officeName=office.get().getOfficeName();
+		return officeName;
 	}
 	
 	

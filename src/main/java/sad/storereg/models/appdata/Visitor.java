@@ -66,5 +66,7 @@ public class Visitor {
 
     private LocalDateTime entrydate;
 
+    @Column(name="office_code")
+    private Integer officeCode;
 
 }

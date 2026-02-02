@@ -68,6 +68,7 @@ public class UserController {
 			userInfo.put("role", user.getRole());
 			userInfo.put("name", user.getName());
 			userInfo.put("department", user.getDepartment());
+			userInfo.put("office", coreService.getOfficeName(user.getOfficeCode()));
 			userInfo.put("designation", user.getDesignation());
 //			if(user.getOfficeCode()!=null)
 //				userInfo.put("office", coreService.getOffice(user.getOfficeCode()).getOfficeName());

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -13,24 +14,30 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import sad.storereg.models.appdata.Visitor;
+import sad.storereg.models.master.Office;
 import sad.storereg.repo.appdata.VisitorRepository;
+import sad.storereg.repo.master.OfficeRepository;
 
 @Service
 @RequiredArgsConstructor
 public class ReportServiceExcel {
 
 	private final VisitorRepository visitorRepository;
+	private final OfficeRepository officeRepository;
 	
-	public byte[] generateVisitorReportExcel(LocalDate startDate, LocalDate endDate) throws Exception {
+	public byte[] generateVisitorReportExcel(LocalDate startDate, LocalDate endDate, Integer officeCode) throws Exception {
 
 	    LocalDateTime startDateTime = startDate.atStartOfDay();
 	    LocalDateTime endDateTime = endDate.atTime(LocalTime.MAX);
 
 	    DateTimeFormatter dateOnly = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
+	    
+	    Optional<Office> office = officeRepository.findByOfficeCode(officeCode);
+        String building = office.isEmpty()?"":office.get().getOfficeName();
 
 	    List<Visitor> visitors =
-	            visitorRepository.findByVisitDateTimeBetween(startDateTime, endDateTime);
+	            visitorRepository.findByVisitDateTimeBetweenAndOfficeCodeEquals(startDateTime, endDateTime, officeCode);
 
 	    Workbook workbook = new XSSFWorkbook();
 	    Sheet sheet = workbook.createSheet("Visitor Report");
@@ -71,9 +78,11 @@ public class ReportServiceExcel {
 	    // ---------------- Title ----------------
 	    Row titleRow = sheet.createRow(rowNum++);
 	    Cell titleCell = titleRow.createCell(0);
-	    titleCell.setCellValue("Visitors");
+	    titleCell.setCellValue("Government of Meghalaya \n"+building+" \nVisitors");
 	    titleCell.setCellStyle(titleStyle);
+	    titleStyle.setWrapText(true); 
 	    sheet.addMergedRegion(new org.apache.poi.ss.util.CellRangeAddress(0, 0, 0, 7));
+	    titleRow.setHeightInPoints((5 * sheet.getDefaultRowHeightInPoints())); 
 
 	    rowNum++;
 
@@ -121,7 +130,7 @@ public class ReportServiceExcel {
 	        row.createCell(4).setCellValue(v.getPurpose());
 	        row.createCell(5).setCellValue(v.getPurposeDetails());
 	        row.createCell(6).setCellValue(v.getVisitDateTime().format(dateTimeFormatter));
-	        row.createCell(7).setCellValue(v.getAddress());
+	        row.createCell(7).setCellValue(v.getAddress()+", "+v.getState());
 
 	        for (int i = 0; i < 8; i++) {
 	            row.getCell(i).setCellStyle(dataStyle);
