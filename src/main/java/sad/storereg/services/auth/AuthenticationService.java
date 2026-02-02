@@ -52,9 +52,7 @@ import sad.storereg.annotations.Auditable;
 import sad.storereg.config.JwtService;
 import sad.storereg.dto.auth.AuthenticationRequest;
 import sad.storereg.dto.auth.AuthenticationResponse;
-import sad.storereg.dto.auth.GetOtpResponseDTO;
 import sad.storereg.dto.auth.RegisterRequest;
-import sad.storereg.dto.auth.VerifyOtpRequestDTO;
 import sad.storereg.exception.InternalServerError;
 import sad.storereg.exception.ObjectNotFoundException;
 import sad.storereg.exception.UnauthorizedException;
@@ -179,26 +177,7 @@ public class AuthenticationService {
 				.role(user.getRole().toString()).build();
 	}
 	
-	@Auditable
-	public AuthenticationResponse getToken(VerifyOtpRequestDTO request, HttpServletRequest httpRequest, HttpServletResponse response)
-			throws BadCredentialsException, UsernameNotFoundException, IOException {
-		
-		jwtService.invalidateUserWithDiffIP(decryptPassword(request.getMobileno()), coreServices.getClientIp(httpRequest));
-		var user = userRepo.findByUsername(decryptPassword(request.getMobileno())).orElseThrow(()->new ObjectNotFoundException("User not found"));
-		var jwtToken = jwtService.generateToken(user);
-		var refreshToken = jwtService.generateRefreshToken(user);
-	    
-		Login login = Login.builder().username(user.getUsername()).uri(httpRequest.getRequestURI()).httpMethod(httpRequest.getMethod())
-				.ts(new Date()).httpStatus(response.getStatus()).build();
-		loginRepo.save(login);
-		
-		MDC.put("username", user.getUsername());
-		log.info("Login");
-		MDC.remove("username");
-		
-		return AuthenticationResponse.builder().accessToken(jwtToken).refreshToken(refreshToken)
-				.role(user.getRole().toString()).build();
-	}
+	
 	
 	@Auditable
 	public AuthenticationResponse authenticate3(AuthenticationRequest request, HttpServletRequest httpRequest, HttpServletResponse response)

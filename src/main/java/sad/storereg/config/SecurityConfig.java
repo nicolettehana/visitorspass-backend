@@ -3,10 +3,7 @@ package sad.storereg.config;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static sad.storereg.models.auth.Role.ADMIN;
-import static sad.storereg.models.auth.Role.USER;
 import static sad.storereg.models.auth.Role.SAD;
-import static sad.storereg.models.auth.Role.PUR;
-import static sad.storereg.models.auth.Role.ISS;
 
 import java.util.List;
 
@@ -54,16 +51,11 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 
-		.authorizeHttpRequests(auth -> auth .requestMatchers("/auth/**", "/csrf-token","/api/**","/my-report","/api2").permitAll()
+		.authorizeHttpRequests(auth -> auth .requestMatchers("/auth/**", "/csrf-token").permitAll()
 				//.requestMatchers("/visitor","/visitor/**").hasAnyAuthority(SAD.name())
 				.requestMatchers("/visitor","/visitor/**").permitAll()
-				.requestMatchers(GET, "/users/get-user-info").hasAnyAuthority(USER.name(), ADMIN.name()) 
-				.requestMatchers(GET, "/menu","/status","/year-range","/items/**","/category/**","/firms/**","/unit/**","rates/**","/purchase/**","/issue/**","/stock/**","/ledger/**") .hasAnyAuthority(ADMIN.name(), PUR.name(), USER.name(), ISS.name(), SAD.name()) 
-				.requestMatchers(GET, "/users/profile") .hasAnyAuthority(ADMIN.name(), PUR.name(), USER.name(), ISS.name(), SAD.name()) 
-				.requestMatchers(POST, "/users/change-password","/users/update","/users/verify-otp-update-mobile","/users/send-otp-update-mobile","/verify-otp-login") .hasAnyAuthority(ADMIN.name(), PUR.name(), SAD.name(), ISS.name()) 
-				.requestMatchers(POST, "/firms/**","/items","/rates/**","/year-range","/category/**","/unit").hasAnyAuthority(SAD.name())
-				.requestMatchers(POST, "/purchase/create","/purchase/create-ns","/purchase/receipt","/purchase/receipt-ns").hasAnyAuthority(SAD.name(), PUR.name())
-				.requestMatchers(POST, "/issue/create").hasAnyAuthority(SAD.name(), ISS.name())
+				.requestMatchers(GET, "/menu","/users/profile","/users/get-user-info") .hasAnyAuthority(ADMIN.name(), SAD.name())
+				.requestMatchers(POST, "/users/change-password","/users/update","/users/verify-otp-update-mobile") .hasAnyAuthority(ADMIN.name(), SAD.name()) 
 				.requestMatchers(GET,"/audit-trail/**","/users/all/**").hasAnyAuthority(ADMIN.name()) 
 				.requestMatchers(POST,"/users/enable-disable/**").hasAnyAuthority(ADMIN.name()) 
 				//.requestMatchers(POST,"/visitor","/visitor/**").permitAll() 

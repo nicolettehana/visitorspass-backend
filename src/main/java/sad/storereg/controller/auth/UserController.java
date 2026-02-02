@@ -28,8 +28,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import sad.storereg.annotations.Auditable;
 import sad.storereg.dto.auth.ChangePasswordRequest;
-import sad.storereg.dto.auth.GetOtpRequestDTO;
-import sad.storereg.dto.auth.GetOtpResponseDTO;
 import sad.storereg.dto.auth.RegisterRequest;
 import sad.storereg.dto.auth.UpdateMobileDTO;
 import sad.storereg.exception.InternalServerError;
@@ -189,24 +187,7 @@ public class UserController {
 		}
 	}
 	
-	@Auditable
-	@PostMapping("/send-otp-update-mobile")
-	public ResponseEntity<Map<String, Object>> sendOtpUpdateMobile(HttpServletRequest httpRequest, @Valid @RequestBody GetOtpRequestDTO request, @AuthenticationPrincipal User user) {
-		Map<String, Object> map = new HashMap<>();
-		try {				
-				if (userRepo.findByUsername(authService.decryptPassword(request.getMobileno())).isPresent()) {
-					throw new UnauthorizedException("Mobile number already registered");
-				}
-				//GetOtpResponseDTO res = otpService.sendOtpUpdateMobile(httpRequest, user, authService.decryptPassword(request.getMobileno()));
-				//map.put("otpToken", res.getOtpToken());
-				map.put("message", "OTP has been sent to mobile number "+ "******".concat(authService.decryptPassword(request.getMobileno()).substring(6)));
-				return new ResponseEntity<>(map, HttpStatus.OK);
-		} catch (UnauthorizedException|ObjectNotFoundException ex) {
-			throw ex;
-		} catch (Exception ex) {
-			throw new InternalServerError("Unable to fetch OTP", ex);
-		}	
-	}
+	
 	
 	@Auditable
 	@PostMapping("/verify-otp-update-mobile")
