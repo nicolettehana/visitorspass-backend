@@ -26,7 +26,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +39,7 @@ import lombok.RequiredArgsConstructor;
 import sad.storereg.annotations.Auditable;
 import sad.storereg.dto.appdata.PhotoData;
 import sad.storereg.dto.appdata.VisitorRequestDto;
+import sad.storereg.exception.InternalServerError;
 import sad.storereg.models.appdata.Visitor;
 import sad.storereg.models.auth.User;
 import sad.storereg.repo.appdata.VisitorRepository;
@@ -163,10 +163,10 @@ public class VisitorController {
     	
 		try {
 			if (mobileNo.matches(".*\\D.*")) {
-				throw new BadRequestException("Invalid Mobile Number");
+				throw new InternalServerError("Invalid Mobile Number");
 			}
 			if (mobileNo.length() != 10 || mobileNo == null)
-				throw new BadRequestException("Invalid Mobile number");
+				throw new InternalServerError("Invalid Mobile number");
 			
 			Optional<Visitor> visitor = visitorService.getData(mobileNo);
 			if(visitor.isEmpty())

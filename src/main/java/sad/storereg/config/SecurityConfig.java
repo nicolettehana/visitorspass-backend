@@ -5,12 +5,14 @@ import static org.springframework.http.HttpMethod.POST;
 import static sad.storereg.models.auth.Role.ADMIN;
 import static sad.storereg.models.auth.Role.SAD;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -52,6 +54,7 @@ public class SecurityConfig {
 		http.csrf().disable()
 
 		.authorizeHttpRequests(auth -> auth .requestMatchers("/auth/**", "/csrf-token").permitAll()
+				.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 				//.requestMatchers("/visitor","/visitor/**").hasAnyAuthority(SAD.name())
 				.requestMatchers("/visitor","/visitor/**").permitAll()
 				.requestMatchers(GET, "/menu","/users/profile","/users/get-user-info") .hasAnyAuthority(ADMIN.name(), SAD.name())
@@ -73,56 +76,26 @@ public class SecurityConfig {
 				.logout(logout -> logout.logoutUrl("/auth/logout")
 						// .addLogoutHandler(logoutHandler)
 						.logoutSuccessHandler(logoutService).invalidateHttpSession(true).deleteCookies("JSESSIONID"));
-//						.addLogoutHandler((request, response, authentication) -> {
-//			                if (authentication != null) {
-//			                    String username = authentication.getName();
-//			                    String clientIp = coreServices.getClientIp(request);
-//
-//			                    auditService.saveAuditTrail(
-//			                        "logout",
-//			                        username,
-//			                        request.getRequestURI(),
-//			                        "User logged out",
-//			                        "Success",
-//			                        clientIp,
-//			                        200
-//			                    );
-//			                }
-//			            })
-//			            .logoutSuccessHandler((request, response, authentication) -> {
-//			                response.setStatus(HttpServletResponse.SC_OK);
-//			            }).invalidateHttpSession(true).deleteCookies("JSESSIONID"));
-				
-		
-		
-		
-		
-		//.logout(logout -> logout.logoutUrl("/auth/logout")
-				//this.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout", "GET"))
-						 //.addLogoutHandler(logoutHandler));
-						//this..logoutSuccessHandler(logoutService));
-		
-						//.logoutSuccessHandler(logoutService).invalidateHttpSession(true).deleteCookies("hey","refresh_token"));
-		// .logoutUrl("/auth/logout").addLogoutHandler(logoutHandler)
-		// .logoutSuccessHandler((request, response, authentication) ->
-		// SecurityContextHolder.clearContext());
+
+	
 
 		String urls = env.getProperty("cors.urls");
+		List<String> allowedOrigins = Arrays.stream(urls.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .toList();
 
 		http.cors(cors -> {
 			CorsConfigurationSource cs = resources -> {
 				CorsConfiguration corsConfiguration = new CorsConfiguration();
-				corsConfiguration.setAllowedOrigins(List.of(urls));
+				//corsConfiguration.setAllowedOrigins(List.of(urls));
+				corsConfiguration.setAllowedOrigins(allowedOrigins);
 				// corsConfiguration.setAllowedOrigins(List.of("*"));
 				corsConfiguration.setAllowedMethods(List.of("POST", "GET", "DELETE", "PUT", "OPTIONS"));
 				corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type", "X-Requested-With",
 						"Accept", "X-XSRF-TOKEN", "API-Key", "Referrer-Policy", "Referer", "Content-Length",
 						"Cache-Control", "Upgrade-Insecure-Requests"
-				// Add forwarding-related headers here
-				// "X-Forwarded-For",
-				// "X-Forwarded-Host",
-				// "X-Forwarded-Proto",
-				// "X-Forwarded-Port"
+
 				));
 				corsConfiguration.setAllowCredentials(true);
 				return corsConfiguration;
@@ -142,13 +115,7 @@ public class SecurityConfig {
 			x.contentSecurityPolicy(
 					y -> y.policyDirectives("default-src 'self'; object-src https://megepayment.gov.in; "
 							+ "script-src 'self'; frame-src 'self'; connect-src 'self' http://10.179.13.183:8084;"));
-//	    	 // Add CORS headers manually
-//	        x.addHeaderWriter((request, response) -> {
-//	            response.setHeader("Access-Control-Allow-Origin", "http://10.179.2.178/");
-//	            response.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-//	            response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept,X-XSRF-TOKEN, API-Key, Referrer-Policy, Referer,Content-Length, Cache-Control,Upgrade-Insecure-Requests");
-//	            response.setHeader("Access-Control-Allow-Credentials", "true");
-//	        });
+
 		});
 
 		return http.build();
