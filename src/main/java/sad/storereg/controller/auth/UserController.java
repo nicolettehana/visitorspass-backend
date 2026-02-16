@@ -1,5 +1,7 @@
 package sad.storereg.controller.auth;
 
+import static sad.storereg.models.auth.Role.USER;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,15 +118,15 @@ public class UserController {
 		try {
 			Map<String, String> map = new HashMap<>();
 			
-			User u = userRepo.findByUsername(user.getUsername()).orElseThrow(()->new ObjectNotFoundException("Invalid username"));
+			User u = userRepo.findByUsername(request.getUsername()).orElseThrow(()->new ObjectNotFoundException("Invalid username"));
 			
-			if(userRepo.findAllByMobileNoAndUsernameNot(request.getMobileNo(), user.getUsername()).size()>0) {
+			if(request.getMobileNo()!=null && userRepo.findAllByMobileNoAndUsernameNot(request.getMobileNo(), u.getUsername()).size()>0) {
 				throw new UnauthorizedException("Mobile no. is already registered");
 			}
 			
 			u.setDepartment(request.getDepartment());
 			u.setDesignation(request.getDesignation());
-			//u.setMobileNo(request.getMobileNo());
+			u.setMobileNo(request.getMobileNo());
 			//u.setUsername(request.getMobileNo());
 			u.setName(request.getName());
 			u.setEmail(request.getEmail());
@@ -188,8 +190,6 @@ public class UserController {
 		}
 	}
 	
-	
-	
 	@Auditable
 	@PostMapping("/verify-otp-update-mobile")
 	public ResponseEntity<Map<String, String>> verifyOTPSignUp(@Valid @RequestBody UpdateMobileDTO request,
@@ -215,5 +215,26 @@ public class UserController {
 		} catch (Exception ex) {
 			throw new InternalServerError("Unable to perform action", ex);
 		}
-	}	
+	}
+	
+	@Auditable
+	@Transactional
+	@PostMapping("/register")
+	public ResponseEntity<Map<String, String>> register(@Valid @RequestBody RegisterRequest request,
+			HttpServletRequest httpRequest) {
+		try {
+			Map<String, String> map = new HashMap<>();
+			
+			authService.register2(request);			
+			
+			map.put("detail", "User Registered.");
+
+			return new ResponseEntity<>(map, HttpStatus.OK);
+
+		} catch (UnauthorizedException|InternalServerError ex) {
+			throw ex;
+		} catch (Exception ex) {
+			throw new InternalServerError("Unable to register user", ex);
+		}
+	}
 }

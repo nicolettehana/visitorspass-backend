@@ -125,6 +125,40 @@ public class AuthenticationService {
 		return user;
 	}
 	
+	@Transactional
+	public User register2(RegisterRequest request) {
+		
+		Optional<User> userr = userRepo.findByUsername(request.getUsername());
+		String mobileNo=null;
+		if (userr.isPresent())
+			throw new InternalServerError("Username already registered");
+		if(request.getMobileNo()!=null) {
+			mobileNo= (decryptPassword(request.getMobileNo()));
+			Optional<User> user1 = userRepo.findByUsername(mobileNo);
+			if (user1.isPresent())
+				throw new InternalServerError("User with this mobile number is already registered.");
+		}
+		
+//	    Optional<User> existingUserByEmailNo = userRepo.findByEmail(request.get);
+//	    if (existingUserByMobileNo.isPresent()) {
+//	        throw new InternalServerError("User with this mobile number is already registered.");
+//	    }
+		
+		Role role = Role.valueOf(request.getRole().toString().toUpperCase());
+
+		String pw = request.getPassword() == null ? "Password@123" : decryptPassword(request.getPassword());			
+
+		var user = User.builder().name(request.getName()).designation(request.getDesignation())
+				.department(request.getDepartment())
+				.username(request.getUsername()).email(request.getUsername()).password(passwordEncoder.encode(pw))
+				.role(role).isEnabled(true).officeCode(request.getOfficeCode())
+				.entryDate(Timestamp.from(Instant.now())).mobileNo(mobileNo).build();
+		
+		userRepo.save(user);
+		
+		return user;
+	}
+	
 	@Auditable
 	public ResponseEntity<?> authStep1(AuthenticationRequest request, HttpServletRequest httpRequest) {
 	    String username = decryptPassword(request.getUsername());

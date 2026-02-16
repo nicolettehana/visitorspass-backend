@@ -32,7 +32,7 @@ public interface VisitorRepository extends JpaRepository<Visitor, Long>{
 	                OR LOWER(v.vPassNo) LIKE LOWER(CONCAT('%', :search, '%'))
 	                OR LOWER(v.purposeDetails) LIKE LOWER(CONCAT('%', :search, '%'))
 	          )
-	          AND v.officeCode = :officeCode
+	          AND (v.officeCode = :officeCode OR :officeCode IS NULL)
 	    """)
 	    Page<Visitor> searchVisitorsBetweenDates(
 	            @Param("startDateTime") LocalDateTime startDateTime,
@@ -43,6 +43,7 @@ public interface VisitorRepository extends JpaRepository<Visitor, Long>{
 	    );
 	
 	List<Visitor> findByVisitDateTimeBetweenAndOfficeCodeEquals(LocalDateTime startDateTime, LocalDateTime endDateTime, Integer officeCode);
+	List<Visitor> findByVisitDateTimeBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
 	
 	Optional<Visitor> findTopByMobileNo(String mobileNo);
 

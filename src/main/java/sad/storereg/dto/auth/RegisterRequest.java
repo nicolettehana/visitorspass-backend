@@ -46,4 +46,6 @@ public class RegisterRequest {
 	private UUID otpToken;
 	
 	private String otp;
+	
+	private Integer officeCode;
 }

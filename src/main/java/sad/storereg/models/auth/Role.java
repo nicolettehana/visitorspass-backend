@@ -16,6 +16,7 @@ public enum Role {
 	USER(Collections.emptySet()),
 	ADMIN(Collections.emptySet()),
 	SAD(Collections.emptySet()),
+	ASAD(Collections.emptySet())	,
 	PUR(Collections.emptySet())	,
 	ISS(Collections.emptySet())	
 	;
