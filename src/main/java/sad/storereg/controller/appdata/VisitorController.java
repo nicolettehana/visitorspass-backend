@@ -44,6 +44,8 @@ import lombok.RequiredArgsConstructor;
 
 import sad.storereg.annotations.Auditable;
 import sad.storereg.dto.appdata.PhotoData;
+import sad.storereg.dto.appdata.PurposeStatsDto;
+import sad.storereg.dto.appdata.VisitorReportResponse;
 import sad.storereg.dto.appdata.VisitorRequestDto;
 import sad.storereg.models.appdata.Visitor;
 import sad.storereg.models.auth.User;
@@ -204,64 +206,32 @@ public class VisitorController {
 	}
     
     @GetMapping(path = "/stats")
-	public Map<String, Object> getStats(
+	public ResponseEntity<VisitorReportResponse> getStats(
 			@RequestParam final Integer month, @RequestParam final Integer year, @RequestParam(required=false) final String purpose,
 			@RequestParam(required=false) final Integer officeCode) throws Exception {
     	
 		try {
+			LocalDate startDate = LocalDate.of(year, month, 1);
+			LocalDate endDate = startDate.withDayOfMonth(startDate.lengthOfMonth());
 			
-			LocalDate today = LocalDate.now();
-		    YearMonth requestedYearMonth = YearMonth.of(year, month);
-		    YearMonth currentYearMonth = YearMonth.from(today);
-
-		    int maxDay;
-
-		    if (requestedYearMonth.equals(currentYearMonth)) {
-		        maxDay = today.getDayOfMonth(); // current month → until today
-		    } else {
-		        maxDay = requestedYearMonth.lengthOfMonth(); // full month
-		    }
-		    
-			Map<String, Object> data = new HashMap<>();
-			List<Map<String, Object>> result = new ArrayList<>();
-			
-			for (int day = 1; day <= maxDay; day++) {
-
-		        LocalDate currentDate = LocalDate.of(year, month, day);
-
-		        Map<String, Object> dailyData = new HashMap<>();
-
-		        dailyData.put("date", currentDate);
-		        dailyData.put("dayOfWeek",
-		                currentDate.getDayOfWeek()
-		                        .getDisplayName(TextStyle.FULL, Locale.ENGLISH)
-		        );
-
-		        // 🔽 Replace these with actual DB counts
-		        long total = 1;
-		        long purpose1 = 1;
-		        long purpose2 = 1;
-		        long purpose3 = 1;
-		        long purpose4 = 1;
-
-		        dailyData.put("totalNoOfVisitors", total);
-		        dailyData.put("noOfVisitorsPurpose1", purpose1);
-		        dailyData.put("noOfVisitorsPurpose2", purpose2);
-		        dailyData.put("noOfVisitorsPurpose3", purpose3);
-		        dailyData.put("noOfVisitorsPurpose4", purpose4);
-
-		        result.add(dailyData);
-		    }
-			
-			data.put("details", result);
-			data.put("noOfVisitors", 1);
-			data.put("purpose1", 1);
-			data.put("purpose2", 1);			
-			data.put("purpose3", 1);
-			
-			return data;
+			return ResponseEntity.ok(
+	                visitorService.getVisitorReport(
+	                        officeCode,
+	                        startDate,
+	                        endDate,
+	                        purpose
+	                ));
 		} catch (Exception e) {
 			throw e;
 		}
 	}
+    
+    @GetMapping("/purpose-stats")
+    public List<PurposeStatsDto> visitorsByPurpose(
+            @RequestParam int year,
+            @RequestParam int month,
+            @RequestParam(required=false) int officeCode) {
+
+        return visitorService.getVisitorsByPurpose(year, month, officeCode);
+    }
 }

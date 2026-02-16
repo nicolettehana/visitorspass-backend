@@ -1,6 +1,7 @@
 sad\storereg\dto\appdata\VisitorRequestDto$VisitorRequestDtoBuilder.class
 sad\storereg\exception\InternalServerError.class
 sad\storereg\config\KaptchaConfig.class
+sad\storereg\dto\appdata\DailyVisitorReportDTO$DailyVisitorReportDTOBuilder.class
 sad\storereg\models\auth\Otp.class
 sad\storereg\config\JwtService.class
 sad\storereg\models\appdata\Purchase.class
@@ -15,6 +16,7 @@ sad\storereg\controller\master\MenuController.class
 sad\storereg\models\auth\CurrentUsers$CurrentUsersBuilder.class
 sad\storereg\dto\master\FirmCheckDTO.class
 sad\storereg\repo\appdata\VisitorRepository.class
+sad\storereg\dto\appdata\VisitorReportResponse$VisitorReportResponseBuilder.class
 sad\storereg\config\ApplicationConfig.class
 sad\storereg\models\master\Category.class
 sad\storereg\services\appdata\VisitorService.class
@@ -55,6 +57,7 @@ sad\storereg\services\auth\LogoutService.class
 sad\storereg\models\auth\Roles.class
 sad\storereg\repo\appdata\StockBalanceRepository.class
 sad\storereg\services\appdata\PhotoStorageService.class
+sad\storereg\services\master\OfficesService.class
 sad\storereg\logs\LogController.class
 sad\storereg\models\auth\Invalidate$InvalidateBuilder.class
 sad\storereg\ServletInitializer.class
@@ -65,6 +68,7 @@ sad\storereg\models\master\Rate.class
 sad\storereg\repo\auth\UserRepository.class
 sad\storereg\models\auth\Role.class
 sad\storereg\models\master\Firm.class
+sad\storereg\dto\appdata\DailyVisitorReportDTO.class
 sad\storereg\dto\appdata\MyFilter.class
 sad\storereg\services\appdata\ReportServiceExcel.class
 sad\storereg\models\auth\User.class
@@ -73,6 +77,7 @@ sad\storereg\dto\auth\UpdateMobileDTO.class
 sad\storereg\services\master\MenuService.class
 sad\storereg\exception\CustomExceptionHandler.class
 sad\storereg\logs\AuditService.class
+sad\storereg\dto\master\OfficeRequest.class
 sad\storereg\dto\auth\AuthenticationResponse$AuthenticationResponseBuilder.class
 sad\storereg\services\appdata\CoreServices.class
 sad\storereg\models\appdata\PurchaseItems.class
@@ -80,6 +85,7 @@ sad\storereg\models\appdata\IssueItem.class
 sad\storereg\dto\auth\AuthenticationRequest.class
 sad\storereg\models\auth\Otp$OtpBuilder.class
 sad\storereg\models\appdata\Visitor$VisitorBuilder.class
+sad\storereg\dto\appdata\VisitorReportResponse.class
 sad\storereg\models\auth\CaptchaSettings.class
 sad\storereg\dto\master\SubItemRateDTO.class
 sad\storereg\models\appdata\PurchaseItemNonStock$PurchaseItemNonStockBuilder.class
@@ -87,6 +93,7 @@ sad\storereg\models\auth\Permission.class
 sad\storereg\models\master\SubItems$SubItemsBuilder.class
 sad\storereg\models\auth\PasswordResetToken.class
 sad\storereg\repo\master\MenuRepository.class
+sad\storereg\controller\master\OfficesController.class
 sad\storereg\logs\Login$LoginBuilder.class
 sad\storereg\config\JwtAuthenticationFilter.class
 sad\storereg\dto\master\FirmsDTO$FirmsDTOBuilder.class
@@ -115,6 +122,7 @@ sad\storereg\repo\appdata\PurchaseRepository.class
 sad\storereg\dto\auth\RegisterRequest$RegisterRequestBuilder.class
 sad\storereg\dto\master\FirmApproveDTO.class
 sad\storereg\dto\appdata\VisitorRequestDto.class
+sad\storereg\dto\appdata\PurposeStatsDto.class
 sad\storereg\models\master\Item.class
 sad\storereg\models\appdata\PurchaseItemNonStock.class
 sad\storereg\logs\LoginRepository.class

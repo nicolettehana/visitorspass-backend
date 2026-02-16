@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import sad.storereg.dto.appdata.PurposeStatsDto;
 import sad.storereg.models.appdata.Visitor;
 
 public interface VisitorRepository extends JpaRepository<Visitor, Long>{
@@ -46,6 +47,42 @@ public interface VisitorRepository extends JpaRepository<Visitor, Long>{
 	List<Visitor> findByVisitDateTimeBetween(LocalDateTime startDateTime, LocalDateTime endDateTime);
 	
 	Optional<Visitor> findTopByMobileNo(String mobileNo);
+	
+	@Query("""
+	        SELECT v.purpose as purpose,
+	               SUM(v.noOfVisitors) as totalVisitors
+	        FROM Visitor v
+	        WHERE YEAR(v.visitDateTime) = :year
+	          AND MONTH(v.visitDateTime) = :month 
+	          AND v.officeCode = :officeCode
+	        GROUP BY v.purpose
+	        ORDER BY totalVisitors DESC
+	    """)
+	    List<PurposeStatsDto> countVisitorsByPurpose(
+	            @Param("year") int year,
+	            @Param("month") int month,
+	            @Param("officeCode") int officeCode
+	    );
+	
+	@Query("""
+		    SELECT 
+		        CAST(v.visitDateTime AS date),
+		        v.purpose,
+		        SUM(v.noOfVisitors)
+		    FROM Visitor v
+		    WHERE (:officeCode IS NULL OR v.officeCode = :officeCode)
+		    AND v.visitDateTime >= :start
+		    AND v.visitDateTime < :end
+		    AND (:purpose IS NULL OR v.purpose = :purpose)
+		    GROUP BY  CAST(v.visitDateTime AS date), v.purpose
+		    ORDER BY  CAST(v.visitDateTime AS date)
+		""")
+		List<Object[]> getVisitorsGrouped(
+		        @Param("officeCode") Integer officeCode,
+		        @Param("start") LocalDateTime start,
+		        @Param("end") LocalDateTime end,
+		        @Param("purpose") String purpose
+		);
 
 
 }
